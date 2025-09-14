@@ -69,7 +69,24 @@ class Solution {
         }
         return Arrays.asList(Collections.min(diagonals), Collections.max(diagonals));
     }
+    public static Integer findRowWithTarget(int[][] matrix, int target) {
+        int rows = matrix[0].length-1;
+        int cols = matrix.length-1;
+        int counter = 0;
+        int row = 0;
+        int col = 0;
+        for (;  col<cols ; col++) {
+            for (; row < rows; row++) {
+                if (matrix[row][col] == target) {
+                    return row;
+                } else {
+                    return null;
+                }
+            }
+        }
 
+        return row;
+    }
 
     public static void main(String[] args) {
         int[][] seatingChart = {
@@ -85,11 +102,17 @@ class Solution {
 
         int[][] matrix2 = {{1, 2, 3, 4}, {2, 3, 4, 5}, {3, 4, 5, 6}, {4, 5, 6, 7}};
 
+        int [][] matrix3 =  {
+                {1, 4, 7},
+                {2, 5, 8},
+                {3, 6, 9}};
+
         // TODO: Store the result of transformMatrix in transposedSeating and print it
         //  System.out.println(Arrays.deepToString(transformMatrix(seatingChart)));
         // System.out.println(isToeplitzMatrix(matrix));
         //  System.out.println(countLessThan(matrix2,5));
-        System.out.println(solution(matrix));
+     //   System.out.println(solution(matrix));
+        System.out.println(findRowWithTarget(matrix3, 5));
 
     }
 }
