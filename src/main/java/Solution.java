@@ -1,4 +1,8 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 class Solution {
 
     public static int[][] transformMatrix(int[][] matrix) {
@@ -24,24 +28,68 @@ class Solution {
                 if (matrix[row][col] != matrix[row + 1][col + 1]) {
                     return false;
                 }
-
             }
         }
         return true;
     }
 
-
-        public static void main (String[]args){
-            int[][] seatingChart = {
-                    {101, 102, 103, 104},
-                    {201, 202, 203, 204},
-                    {301, 302, 303, 304}
-            };
-
-            int[][] matrix = {{6, 7, 8}, {4, 6, 7}, {1, 4, 6}};
-            // TODO: Store the result of transformMatrix in transposedSeating and print it
-            //  System.out.println(Arrays.deepToString(transformMatrix(seatingChart)));
-            System.out.println(isToeplitzMatrix(matrix));
-
+    public static int countLessThan(int[][] matrix, int target) {
+        int rows = matrix[0].length;
+        int cols = matrix.length;
+        int counter = 0;
+        int row = 0;
+        int col = cols - 1;
+        while (row < rows && col >= 0) {
+            if (matrix[row][col] < target) {
+                counter += col + 1;
+                row++;
+            } else {
+                col--;
+            }
         }
+        return counter;
     }
+
+    public static List<Integer> solution(int[][] grid) {
+        if (grid.length == 0) {
+            return Arrays.asList(null, null);
+        }
+        int columns = grid.length;
+        int rows = grid[0].length;
+        int row = 0;
+        int column = 0;
+        int secondDiagonal = 0;
+        List<Integer> diagonals = new ArrayList<>();
+        for (; column < columns; column++) {
+            for (; row < rows; row++) {
+                secondDiagonal = grid[row][columns - 1 - row];
+                System.out.println(secondDiagonal);
+                diagonals.add(secondDiagonal);
+            }
+        }
+        return Arrays.asList(Collections.min(diagonals), Collections.max(diagonals));
+    }
+
+
+    public static void main(String[] args) {
+        int[][] seatingChart = {
+                {101, 102, 103, 104},
+                {201, 202, 203, 204},
+                {301, 302, 303, 304}
+        };
+
+        int[][] matrix = {
+                {6, 7, 8},
+                {4, 6, 7},
+                {1, 4, 6}};
+
+        int[][] matrix2 = {{1, 2, 3, 4}, {2, 3, 4, 5}, {3, 4, 5, 6}, {4, 5, 6, 7}};
+
+        // TODO: Store the result of transformMatrix in transposedSeating and print it
+        //  System.out.println(Arrays.deepToString(transformMatrix(seatingChart)));
+        // System.out.println(isToeplitzMatrix(matrix));
+        //  System.out.println(countLessThan(matrix2,5));
+        System.out.println(solution(matrix));
+
+    }
+}
